@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Loading</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="loader-container">
+    <img src="wai.png" alt="anime girl" class="progress-img" />
+
+    <div class="progress-row">
+      <div class="progress-bar">
+        <div class="progress-bar-fill" id="progress-fill"></div>
+        <div class="progress-label">Loading Waifu</div>
+      </div>
+      <div class="progress-percent" id="progress-text">0%</div>
+    </div>
+
+    <div class="powered-text">Powered by Dev X</div>
+  </div>
+
+  <script>
+    const fill = document.getElementById("progress-fill");
+    const text = document.getElementById("progress-text");
+    let percent = 0;
+    const duration = 4000;
+    const intervalTime = duration / 100;
+
+    const interval = setInterval(() => {
+      percent++;
+      fill.style.width = percent + "%";
+      text.textContent = percent + "%";
+      if (percent >= 100) clearInterval(interval);
+    }, intervalTime);
+  </script>
+</body>
+</html>
