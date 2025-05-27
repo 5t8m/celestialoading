@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Intro</title>
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -15,28 +15,52 @@
     <span id="typedText2"></span>
   </div>
 
+  <!-- Placeholder for Form 1, hidden initially -->
+  <div id="form1" style="display:none; color:white; font-size:24px; text-align:center; padding:20px;">
+    <!-- Replace this div content with your actual Form 1 HTML -->
+    <h2>Form 1 Loaded</h2>
+    <p>This is where your form 1 content appears after intro.</p>
+  </div>
+
   <script>
     const introImage = document.getElementById('introImage');
     const welcomeText = document.getElementById('welcomeText');
     const typedText1 = document.getElementById('typedText1');
     const typedText2 = document.getElementById('typedText2');
+    const form1 = document.getElementById('form1');
 
-    setTimeout(() => {
-      introImage.classList.add("fade-out");
-    }, 2000);
+    // Start the intro immediately when the page loads:
+    window.addEventListener('load', () => {
+      // Start fading out the intro image after 2 seconds
+      setTimeout(() => {
+        introImage.classList.add("fade-out");
+      }, 2000);
 
-    setTimeout(() => {
-      welcomeText.style.display = 'flex';
-      typeWriter("Welcome, User", typedText1, () => {
-        setTimeout(() => {
-          typeWriter("Hope you enjoy this experience", typedText2, () => {
-            setTimeout(() => {
-              window.chrome.webview.postMessage("introComplete");
-            }, 1000);
-          });
-        }, 500);
-      });
-    }, 3000);
+      // Show welcome text container and start typing after 3 seconds
+      setTimeout(() => {
+        welcomeText.style.display = 'flex';
+        typeWriter("Welcome, User", typedText1, () => {
+          setTimeout(() => {
+            typeWriter("Hope you enjoy this experience", typedText2, () => {
+              // After all typing complete, wait 1 second then load Form 1
+              setTimeout(() => {
+                // Send message to WebView host if applicable
+                if (window.chrome && window.chrome.webview) {
+                  window.chrome.webview.postMessage("introComplete");
+                }
+
+                // Hide intro texts and image container
+                welcomeText.style.display = 'none';
+                introImage.style.display = 'none';
+
+                // Show Form 1 (replace this with your actual form load)
+                form1.style.display = 'block';
+              }, 1000);
+            });
+          }, 500);
+        });
+      }, 3000);
+    });
 
     function typeWriter(text, element, callback) {
       let i = 0;
