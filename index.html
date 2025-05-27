@@ -8,16 +8,18 @@
 </head>
 <body>
   <div class="image-container" id="introImage">
-    <img src="intro.jpg" alt="Intro Image" />
+    <!-- Image removed as requested -->
   </div>
   <div class="text-container" id="welcomeText">
-    <span id="typedText"></span>
+    <span id="typedText1"></span>
+    <span id="typedText2"></span>
   </div>
 
   <script>
     const introImage = document.getElementById('introImage');
     const welcomeText = document.getElementById('welcomeText');
-    const typedText = document.getElementById('typedText');
+    const typedText1 = document.getElementById('typedText1');
+    const typedText2 = document.getElementById('typedText2');
 
     setTimeout(() => {
       introImage.classList.add("fade-out");
@@ -25,15 +27,20 @@
 
     setTimeout(() => {
       welcomeText.style.display = 'flex';
-      typeWriter("Welcome, User", typedText, () => {
+      typeWriter("Welcome, User", typedText1, () => {
         setTimeout(() => {
-          window.chrome.webview.postMessage("introComplete");
-        }, 1000);
+          typeWriter("Hope you enjoy this experience", typedText2, () => {
+            setTimeout(() => {
+              window.chrome.webview.postMessage("introComplete");
+            }, 1000);
+          });
+        }, 500);
       });
     }, 3000);
 
     function typeWriter(text, element, callback) {
       let i = 0;
+      element.textContent = '';
       function type() {
         if (i < text.length) {
           element.textContent += text.charAt(i);
