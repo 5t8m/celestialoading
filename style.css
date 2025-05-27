@@ -20,6 +20,7 @@ body, html {
   align-items: center;
   text-align: center;
   gap: 1.2rem;
+  position: relative;
 }
 
 .progress-img {
@@ -28,7 +29,8 @@ body, html {
   object-fit: contain;
   user-select: none;
   pointer-events: none;
-  margin-bottom: -7px; /* Moves image 0.7cm (~7px) up */
+  position: relative;
+  top: 8px; /* fine-tuned vertical alignment */
 }
 
 .progress-row {
