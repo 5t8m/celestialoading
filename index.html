@@ -2,38 +2,49 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Loading</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Intro</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="loader-container">
-    <div class="progress-wrapper">
-      <img src="" alt="Celestia Logo" class="progress-img" />
-      <div class="progress-row">
-        <div class="progress-bar">
-          <div class="progress-bar-fill" id="progress-fill"></div>
-          <div class="progress-label">Loading Celestia</div>
-        </div>
-        <div class="progress-percent" id="progress-text">0%</div>
-      </div>
-    </div>
-    <div class="powered-text"></div>
+  <div class="image-container" id="introImage">
+    <img src="intro.jpg" alt="Intro Image" />
+  </div>
+  <div class="text-container" id="welcomeText">
+    <span id="typedText"></span>
   </div>
 
   <script>
-    const fill = document.getElementById("progress-fill");
-    const text = document.getElementById("progress-text");
-    let percent = 0;
-    const duration = 4000;
-    const intervalTime = duration / 100;
+    const introImage = document.getElementById('introImage');
+    const welcomeText = document.getElementById('welcomeText');
+    const typedText = document.getElementById('typedText');
 
-    const interval = setInterval(() => {
-      percent++;
-      fill.style.width = percent + "%";
-      text.textContent = percent + "%";
-      if (percent >= 100) clearInterval(interval);
-    }, intervalTime);
+    setTimeout(() => {
+      introImage.classList.add("fade-out");
+    }, 2000);
+
+    setTimeout(() => {
+      welcomeText.style.display = 'flex';
+      typeWriter("Welcome, User", typedText, () => {
+        setTimeout(() => {
+          window.chrome.webview.postMessage("introComplete");
+        }, 1000);
+      });
+    }, 3000);
+
+    function typeWriter(text, element, callback) {
+      let i = 0;
+      function type() {
+        if (i < text.length) {
+          element.textContent += text.charAt(i);
+          i++;
+          setTimeout(type, 75);
+        } else {
+          callback();
+        }
+      }
+      type();
+    }
   </script>
 </body>
 </html>
