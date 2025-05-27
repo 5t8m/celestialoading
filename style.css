@@ -1,4 +1,3 @@
-/* Reset */
 * {
   margin: 0;
   padding: 0;
@@ -6,86 +5,50 @@
 }
 
 body, html {
+  width: 100%;
   height: 100%;
-  background-color: rgb(25, 25, 25);
-  display: flex;
+  overflow: hidden;
+  background-color: black;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.image-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fade-out {
+  animation: blurOut 1.5s forwards;
+}
+
+@keyframes blurOut {
+  0% {
+    filter: blur(0px);
+    opacity: 1;
+  }
+  100% {
+    filter: blur(10px);
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.text-container {
+  display: none;
   align-items: center;
   justify-content: center;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.loader-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 0.4rem;
-  position: relative;
-}
-
-.progress-wrapper {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.progress-img {
-  width: 64px;
-  height: 64px;
-  object-fit: contain;
-  user-select: none;
-  pointer-events: none;
-  position: absolute;
-  top: -52px; /* Exactly places it above bar center */
-  z-index: 2;
-}
-
-.progress-row {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-}
-
-.progress-bar {
-  width: 280px;
-  height: 20px;
-  background-color: #333;
-  border-radius: 20px;
-  overflow: hidden;
-  position: relative;
-  box-shadow: inset 0 0 6px #00000088;
-}
-
-.progress-bar-fill {
   height: 100%;
-  width: 0%;
-  background-color: #007BFF;
-  border-radius: 20px;
-  transition: width 0.05s linear;
-  box-shadow: 0 0 8px #007bffaa;
-}
-
-.progress-label {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 0.95rem;
   color: white;
-  pointer-events: none;
-  user-select: none;
-}
-
-.progress-percent {
-  font-size: 1rem;
-  color: dimgray;
-  width: 50px;
-  text-align: left;
-}
-
-.powered-text {
-  font-size: 0.85rem;
-  color: dimgray;
-  margin-top: 0.4rem;
+  font-size: 32px;
+  z-index: 20;
+  position: absolute;
+  width: 100%;
 }
